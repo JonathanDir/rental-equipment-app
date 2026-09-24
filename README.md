@@ -4,16 +4,23 @@ Aplikasi konsol berbasis **Dart murni** yang dirancang untuk mengimplementasikan
 Proyek ini berfokus pada pemodelan domain yang aman (*domain modeling*), di mana tipe data dan struktur kelas dikonstruksi secara defensif untuk menolak kondisi yang tidak valid atau mustahil dalam aturan bisnis nyata.
 
 
-📋 Daftar IsiLatar Belakang & Domain SistemAturan Bisnis & Validasi DomainAnalisis Teknis & Penerapan 6 Pilar OOPStruktur Arsitektur DirektoriRefleksi & Keputusan Desain (Design Trade-offs)Panduan Eksekusi & Pengujian Kode📌 1. Latar Belakang & Domain SistemSistem ini dibangun untuk menyelesaikan studi kasus nyata pada manajemen inventaris dan transaksi penyewaan alat-alat penjelajahan alam (outdoor equipment). Dalam operasionalnya, sistem dirancang menggunakan Dart murni (Pure Dart) tanpa antarmuka grafis, berfokus penuh pada ketahanan logika bisnis (business logic layer) agar struktur data mampu menolak kondisi-kondisi mustahil yang melanggar hukum operasional penyewaan.🛡️ 2. Aturan Bisnis & Validasi DomainUntuk memastikan integritas data tetap terjaga, sistem menegakkan dua aturan mutlak berikut:Pencegahan Keadaan Mustahil (Impossible State Rejection): Sebuah instansiasi transaksi penyewaan tidak diizinkan apabila inventaris yang diminta sedang dalam status aktif disewa oleh pihak lain (rented) atau sedang masuk jadwal pemeliharaan (maintenance).Validasi Konstruktor Ketat (Defensive Constructor): Ketika kelas transaksi diinisialisasi, konstruktor bertindak sebagai gerbang pengaman yang memindai status seluruh alat. Jika ditemukan celah inkonsistensi data, program secara otomatis memicu pengecualian kustom dan membatalkan transaksi seketika.🧩 3. Analisis Teknis & Penerapan 6 Pilar OOPBerikut adalah rincian teknis mengapa komponen OOP dipilih berdasarkan kebutuhan nyata domain:Komponen OOPImplementasi pada ProyekAlasan Pemilihan Berbasis Domain1. Relasi Antar KelasCustomer, Equipment, dan RentalTransactionMencegah penumpukan atribut (field bloating). Memungkinkan satu profil pelanggan merekam transaksi struk yang memuat banyak barang sekaligus.2. Komposisi ObjekRentalTransaction memiliki instansiasi Customer & ListHubungan antar entitas bersifat asosiatif logis (has-a), bukan pewarisan (is-a), karena transaksi bukanlah bentuk turunan dari pelanggan maupun barang.3. Mixin Fleksibelmixin AuditableMenyuntikkan fungsi pencatatan log riwayat waktu secara otomatis ke kelas yang tidak memiliki hubungan kekerabatan (unrelated classes), seperti entitas pelanggan dan barang.4. Pembatasan Nilaienum EquipmentStatus (available, rented, maintenance)Menghindari celah kesalahan ketik (typo) dibanding menggunakan tipe data teks mentah (String).5. Null Safety BermaknaProperti DateTime? returnDate pada kelas transaksiMerefleksikan kondisi dunia nyata bahwa pada awal barang disewa, tanggal pengembalian belum terjadi sehingga secara logis bernilai kosong (null).6. Custom ExceptionKelas UnavailableEquipmentExceptionBerperan sebagai mekanisme penghenti alur program secara spesifik dan elegan saat aturan ketersediaan inventaris dilanggar.📁 4. Struktur Arsitektur DirektoriProyek diorganisasikan ke dalam standar pemisahan kode sumber dan eksekusi skenario terminal:Plaintextrental-equipment-app/
-│
-├── bin/
-│   └── p2_rental_outdoor.dart      # Titik masuk eksekusi simulasi skenario konsol
-├── lib/
-│   └── p2_rental_outdoor.dart      # Inti pemodelan domain (Entities, Mixin, Enum, Exceptions)
-├── .gitignore                      # Berkas pengecualian pelacakan Git
-├── analysis_options.yaml           # Konfigurasi penegakan aturan linter Dart yang ketat
-├── pubspec.yaml                    # Berkas konfigurasi manajemen dependensi proyek
-└── README.md                       # Dokumentasi teknis sistem
-💡 5. Refleksi & Keputusan Desain (Design Trade-offs)Alokasi Atribut Biaya (dailyRate):Dilema Awal: Sempat muncul keraguan apakah variabel tarif harian (dailyRate) harus dideklarasikan langsung di dalam kalkulasi transaksi atau melekat pada entitas alat.Keputusan Akhir: Atribut harga harian ditetapkan secara permanen melekat pada kelas induk Equipment sebagai harga acuan dasar. Hal ini mempermudah pembaruan harga inventaris tanpa harus mengubah logika di dalam kelas transaksi. Kelas transaksi bertugas murni mengambil referensi nilai tersebut untuk dikalikan dengan durasi sewa.🚀 6. Panduan Eksekusi & Pengujian KodePastikan perangkat komputer Anda telah terpasang perangkat pengembangan SDK Dart.Lakukan pemindaian kualitas kode untuk memastikan struktur bersih total tanpa peringatan (Nol peringatan):Bashdart analyze
-(Pastikan terminal memunculkan pesan: No issues found!)Jalankan skenario simulasi program konsol secara langsung:Bashdart run bin/p2_rental_outdoor.dart
+astikan perangkat komputer Anda telah terpasang perangkat pengembangan SDK Dart.
+
+Lakukan pemindaian kualitas kode untuk memastikan struktur bersih total tanpa peringatan (Nol peringatan):
+
+Bash
+
+
+dart analyze
+(Pastikan terminal memunculkan pesan: No issues found!)
+
+Jalankan skenario simulasi program konsol secara langsung:
+
+Bash
+
+
+dart run bin/p2_rental_outdoor.dart
 Dokumentasi ini disusun secara komprehensif untuk menjamin keterbacaan kode, transparansi keputusan perancangan, serta kemudahan dalam proses asesmen proyek.
+
+
+Setelah ditempel di editor GitHub, Anda bisa mengeklik tombol **"Preview"** di sebelah tab "Edit" untuk melihat hasil tampilannya, lalu klik tombol hijau **"Commit changes..."** di pojok kanan atas untuk menyimpannya.
