@@ -192,3 +192,8 @@ Dengan pemisahan tersebut, `Equipment` bertanggung jawab terhadap **data dan kar
 Project ini dibuat sebagai latihan penerapan konsep **OOP pada Dart** dengan menggunakan studi kasus yang dekat dengan kebutuhan nyata, khususnya dalam pengelolaan penyewaan perlengkapan outdoor.
 
 Selain menerapkan sintaks Dart, project ini juga menekankan bagaimana sebuah aturan bisnis dapat diterjemahkan ke dalam struktur program sehingga sistem tidak hanya dapat menjalankan proses normal, tetapi juga mampu **menolak kondisi yang tidak valid**.
+
+
+
+Copyright (c) 2026 Jonathan Naufal Farrel
+All rights reserved.
