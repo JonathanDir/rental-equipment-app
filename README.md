@@ -11,7 +11,7 @@ Set-Location P02_Dart_OOP
 dart run bin/p2_rental_outdoor.dart
 ```
 
-Penjelasan tugas dan README P02 ada di folder yang sama.
+README P02 dan panduan tugas ada di folder tersebut.
 
 ## P03 — Flutter Mini App
 
@@ -25,7 +25,7 @@ flutter pub get
 flutter run -d emulator-5554
 ```
 
-Sebelum diserahkan, pastikan tiga layar daftar, detail, dan tambah item berfungsi, lalu jalankan `flutter analyze`. Buat tag `p03` setelah perubahan final disimpan di repo. Jika mengumpulkan ZIP, jangan sertakan folder `build`.
+Sebelum diserahkan, pastikan tiga layar daftar, detail, dan tambah item berfungsi, lalu jalankan `flutter analyze`. Jika mengumpulkan ZIP, jangan sertakan folder `build`.
 
 ## Capstone
 
