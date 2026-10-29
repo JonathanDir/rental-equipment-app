@@ -1,3 +1,11 @@
 # https://dart.dev/tools/private-files
 # Created by `dart pub`
 .dart_tool/
+**/.dart_tool/
+**/build/
+**/.idea/
+**/*.iml
+**/local.properties
+**/.flutter-plugins
+**/.flutter-plugins-dependencies
+/p03_work/

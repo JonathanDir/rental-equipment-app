@@ -1,18 +1,32 @@
-# P02 — Dart OOP Challenge: Sistem Penyewaan Alat Outdoor
+# Rental Outdoor — Tugas P02, P03, dan Capstone
 
-Domain yang saya pilih adalah pengelolaan inventaris dan transaksi penyewaan alat *outdoor* (seperti perlengkapan naik gunung atau kegiatan organisasi kampus).
+Repo ini menyimpan tugas-tugas mata kuliah dalam folder terpisah agar source dan petunjuk tiap tugas tidak tercampur.
 
-### Aturan Domain yang Ditegakkan
-1. **Keadaan Mustahil yang Ditolak:** Sebuah transaksi penyewaan tidak boleh terjadi jika barang yang diminta sedang disewa orang lain atau sedang dalam perbaikan (*maintenance*).
-2. **Validasi Pembuatan Objek:** Saat objek `RentalTransaction` dibuat, konstruktornya akan mengecek status seluruh barang. Jika ada satu saja barang yang tidak `available`, sistem langsung melempar `UnavailableEquipmentException` dan membatalkan transaksi.
+## P02 — Dart OOP
 
-### Jawaban atas Keputusan Pemodelan
-* **Kenapa 3 kelas berelasi?** Saya memisahkan `Customer`, `Equipment`, dan `RentalTransaction`. Ini menghindari penumpukan *field* (misal: memasukkan nama penyewa langsung ke kelas `Equipment`), sehingga satu *customer* bisa menyewa banyak alat sekaligus dalam satu struk transaksi.
-* **Pewarisan vs Komposisi:** Saya memilih **Komposisi**. `RentalTransaction` *memiliki* objek `Customer` dan kumpulan objek `Equipment`. Saya tidak memakai pewarisan karena secara logika domain, transaksi bukanlah turunan (anak) dari pelanggan maupun barang.
-* **Satu Mixin (`Auditable`):** Digunakan untuk mencatat riwayat kejadian (log). Baik kelas `Customer` (saat mendaftar) maupun `Equipment` (saat berubah status) memakai fungsi ini, padahal keduanya sama sekali tidak punya hubungan darah kekerabatan (*unrelated classes*).
-* **Enum `EquipmentStatus`:** Dipilih agar nilai status barang mutlak hanya 3 (tersedia, disewa, perbaikan). Jika memakai `String`, sistem sangat rentan mengalami *bug* karena salah ketik ("tersedia" vs "Tersedia").
-* **Null Safety yang Berarti:** Field `returnDate` di kelas `RentalTransaction` bertipe `DateTime?` (boleh null). Alasannya murni karena di dunia nyata, saat transaksi sewa baru berjalan, barangnya belum dikembalikan, sehingga tanggal kembalinya memang belum ada.
-* **Satu Exception Custom:** `UnavailableEquipmentException` dibuat khusus untuk menghentikan alur program secara spesifik jika ada yang memaksa menyewa tenda atau alat yang sedang rusak/kosong.
+Source aplikasi P02 ada di [`P02_Dart_OOP`](P02_Dart_OOP/). Untuk menjalankannya dari terminal:
 
-### Keputusan yang Sempat Diragukan
-Awalnya saya ragu apakah `dailyRate` (harga harian) harus diletakkan di `Equipment` atau `RentalTransaction`. Keputusan akhirnya adalah menyimpannya di `Equipment` sebagai harga dasar, lalu `RentalTransaction` bertugas menghitung total akhir berdasarkan selisih `rentDate` dan `returnDate`.
+```powershell
+Set-Location P02_Dart_OOP
+dart run bin/p2_rental_outdoor.dart
+```
+
+Penjelasan tugas dan README P02 ada di folder yang sama.
+
+## P03 — Flutter Mini App
+
+Project Flutter P03 ada di [`P03_Flutter_Mini_App`](P03_Flutter_Mini_App/). Rubrik dan arsip starter berada di [`materials`](materials/).
+
+Untuk menjalankan aplikasi dari terminal:
+
+```powershell
+Set-Location P03_Flutter_Mini_App
+flutter pub get
+flutter run -d emulator-5554
+```
+
+Sebelum diserahkan, pastikan tiga layar daftar, detail, dan tambah item berfungsi, lalu jalankan `flutter analyze`. Buat tag `p03` setelah perubahan final disimpan di repo. Jika mengumpulkan ZIP, jangan sertakan folder `build`.
+
+## Capstone
+
+Deklarasi capstone dan panduan umumnya ada di [`capstone`](capstone/).
